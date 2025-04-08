@@ -3,7 +3,7 @@ from arhivarius.models import XLSXFile
 
 # === Пример использования ===
 if __name__ == "__main__":
-    exm_file_name = 'test_x.xlsx'
+    exm_file_name = 'data_2.xlsx'
 
     reader = SimpleXLSXReader(exm_file_name)
     xlsx_file = XLSXFile(name=exm_file_name, sheets=reader.get_sheets())
