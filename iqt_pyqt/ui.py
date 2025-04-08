@@ -2,6 +2,9 @@ import sys
 import json
 from PyQt5.QtWidgets import (QApplication, QWidget, QLabel,
                              QPushButton, QVBoxLayout, QHBoxLayout,
+                             QTextEdit, QFileDialog, QMessageBox, QFrame, QGridLayout)
+from PyQt5.QtWidgets import (QApplication, QWidget, QLabel,
+                             QPushButton, QVBoxLayout, QHBoxLayout,
                              QTextEdit, QFileDialog, QMessageBox, QFrame)
 from PyQt5.QtCore import Qt
 
@@ -36,83 +39,62 @@ class JSONAppUI(QWidget):
 
     def initUI(self):
         # Сетка для организации элементов
-        main_layout = QVBoxLayout()
+        main_layout = QGridLayout()
 
         # JSON output
         self.json_output = QTextEdit()
         self.json_output.setReadOnly(True)
-        main_layout.addWidget(self.json_output)
-
-        # Row info frame
-        row_info_frame = QFrame()
-        row_info_layout = QVBoxLayout()
-        row_info_frame.setLayout(row_info_layout)
+        # main_layout.addWidget(self.json_output) # Will be added to grid later
 
         self.current_row_label = QLabel("Текущая строка: 1")
-        row_info_layout.addWidget(self.current_row_label)
 
         self.total_rows_label = QLabel("Всего строк: 0")
-        row_info_layout.addWidget(self.total_rows_label)
 
         self.status_label = QLabel("Статус: ожидание...")
-        row_info_layout.addWidget(self.status_label)
 
-        # Layout for JSON output and row info
-        json_row_layout = QHBoxLayout()
-        json_row_layout.addWidget(self.json_output)
-        json_row_layout.addWidget(row_info_frame)
-        main_layout.addLayout(json_row_layout)
 
         # Buttons
         self.generate_button = QPushButton('Сформировать JSON')
         self.generate_button.clicked.connect(self.generate_json)
-        main_layout.addWidget(self.generate_button)
+        # main_layout.addWidget(self.generate_button) # Will be added to grid later
 
         self.send_button = QPushButton('Отправить JSON')
         self.send_button.clicked.connect(self.send_json)
-        main_layout.addWidget(self.send_button)
+        # main_layout.addWidget(self.send_button) # Will be added to grid later
 
         # Cookies section
-        self.cookies_frame = QFrame()
-        cookies_layout = QVBoxLayout()
-        self.cookies_frame.setLayout(cookies_layout)
 
         self.cookies_label = QLabel("Файл cookies: не выбран")
-        cookies_layout.addWidget(self.cookies_label)
+        self.cookies_label.setStyleSheet("background-color: #f0f0f0; border: 1px solid #ccc; padding: 5px;")
 
         self.cookies_button = QPushButton('Выбрать файл cookies')
+        self.cookies_button.setStyleSheet("background-color: #e0e0e0; border: 1px solid #bbb; padding: 5px;")
         self.cookies_button.clicked.connect(lambda: self.cookie_selector.select_cookies_file(self))
-        cookies_layout.addWidget(self.cookies_button)
 
         self.test_button_cookies = QPushButton('Тест')
+        self.test_button_cookies.setStyleSheet("background-color: #e0e0e0; border: 1px solid #bbb; padding: 5px;")
         self.test_button_cookies.clicked.connect(self.test_cookies_file)
-        cookies_layout.addWidget(self.test_button_cookies)
 
         self.cookies_test_flag = QLabel('Флаг: ожидает файл')
-        self.cookies_test_flag.setStyleSheet("color: grey;")
-        cookies_layout.addWidget(self.cookies_test_flag)
-        main_layout.addWidget(self.cookies_frame)
+        self.cookies_test_flag.setStyleSheet("color: grey; background-color: #f0f0f0; border: 1px solid #ccc; padding: 5px;")
+        # main_layout.addWidget(self.cookies_frame) # Will be added to grid later
 
         # Data section
-        self.data_frame = QFrame()
-        data_layout = QVBoxLayout()
-        self.data_frame.setLayout(data_layout)
 
         self.data_label = QLabel("Файл данных: не выбран")
-        data_layout.addWidget(self.data_label)
+        self.data_label.setStyleSheet("background-color: #f0f0f0; border: 1px solid #ccc; padding: 5px;")
 
         self.data_button = QPushButton('Выбрать файл данных')
+        self.data_button.setStyleSheet("background-color: #e0e0e0; border: 1px solid #bbb; padding: 5px;")
         self.data_button.clicked.connect(lambda: self.file_selector.select_data_file(self))
-        data_layout.addWidget(self.data_button)
 
         self.test_button_data = QPushButton('Тест')
+        self.test_button_data.setStyleSheet("background-color: #e0e0e0; border: 1px solid #bbb; padding: 5px;")
         self.test_button_data.clicked.connect(self.test_data_file)
-        data_layout.addWidget(self.test_button_data)
 
         self.data_test_flag = QLabel('Флаг: ожидает файл')
-        self.data_test_flag.setStyleSheet("color: grey;")
-        data_layout.addWidget(self.data_test_flag)
-        main_layout.addWidget(self.data_frame)
+        self.data_test_flag.setStyleSheet("color: grey; background-color: #f0f0f0; border: 1px solid #ccc; padding: 5px;")
+        # main_layout.addWidget(self.data_frame) # Will be added to grid later
 
         # Separator
         line1 = QFrame()
@@ -121,6 +103,29 @@ class JSONAppUI(QWidget):
         main_layout.addWidget(line1)
 
         self.setLayout(main_layout)
+
+        # Add widgets to grid layout
+        main_layout.addWidget(self.json_output, 0, 0, 1, 4) # row, col, rowspan, colspan
+        main_layout.addWidget(self.current_row_label, 1, 0)
+        main_layout.addWidget(self.total_rows_label, 1, 1)
+        main_layout.addWidget(self.status_label, 1, 2)
+        main_layout.addWidget(self.generate_button, 2, 0)
+        main_layout.addWidget(self.send_button, 2, 1)
+
+        main_layout.addWidget(self.cookies_label, 3, 0)
+        main_layout.addWidget(self.cookies_button, 3, 1)
+        main_layout.addWidget(self.test_button_cookies, 3, 2)
+        main_layout.addWidget(self.cookies_test_flag, 3, 3)
+
+        main_layout.addWidget(self.data_label, 4, 0)
+        main_layout.addWidget(self.data_button, 4, 1)
+        main_layout.addWidget(self.test_button_data, 4, 2)
+        main_layout.addWidget(self.data_test_flag, 4, 3)
+
+        main_layout.setColumnStretch(0, 3) # json_output column
+        main_layout.setColumnStretch(1, 1)
+        main_layout.setColumnStretch(2, 1)
+        main_layout.setColumnStretch(3, 1)
 
     def test_cookies_file(self):
         # Логика теста для файла cookies
