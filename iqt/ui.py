@@ -1,6 +1,5 @@
 import tkinter as tk
 
-from iqt.json_handler import JSONHandler
 from iqt.cookie_selector import CookieSelector
 from iqt.file_selector import FileSelector
 
@@ -14,7 +13,6 @@ class JSONAppUI:
         self.root.title('Автоматизатор3001')
         self.root.geometry('850x600')
 
-        self.json_handler = JSONHandler()
         self.cookie_selector = CookieSelector()
         self.file_selector = FileSelector(on_file_select=self.on_data_file_selected)
 
