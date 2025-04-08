@@ -1,11 +1,7 @@
-import sys
 import json
 from PyQt5.QtWidgets import (QApplication, QWidget, QLabel,
                              QPushButton, QVBoxLayout, QHBoxLayout,
                              QTextEdit, QFileDialog, QMessageBox, QFrame, QGridLayout)
-from PyQt5.QtWidgets import (QApplication, QWidget, QLabel,
-                             QPushButton, QVBoxLayout, QHBoxLayout,
-                             QTextEdit, QFileDialog, QMessageBox, QFrame)
 from PyQt5.QtCore import Qt
 
 from iqt_pyqt.cookie_selector import CookieSelector
