@@ -13,7 +13,7 @@ def fetch_kp_id(cookies: dict, code_kp: str = 'П1543') -> int | None:
     """
     url_tmp = f'https://dbpm.sberbank.ru/api/dictionary-service/v1.1/internal/process?code={code_kp}'
 
-    response = requests.get(url_tmp, cookies=cookies)
+    response = requests.get(url_tmp, cookies=cookies, verify=False)
     if response.status_code == 200:
         try:
             data = response.json()
