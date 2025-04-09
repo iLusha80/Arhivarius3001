@@ -179,6 +179,6 @@ class JSONAppUI(QWidget):
             self.update_status_info("Вероятно не хватает какого-то файла")
 
     def generate_json(self):
-        self.curr_json = self.reader.make_json(id_row=self.curr_row)
+        self.curr_json = self.reader.make_json(id_row=self.curr_row, coockies=self.cookie_selector.cookies)
         self.json_output.clear()
         self.json_output.insertPlainText(json.dumps(self.curr_json, indent=4))

@@ -141,6 +141,6 @@ class JSONAppUI:
 
 
     def generate_json(self):
-        self.curr_json = self.reader.make_json(id_row=self.curr_row)
+        self.curr_json = self.reader.make_json(id_row=self.curr_row, coockies=self.cookie_selector.cookies)
         self.json_output.delete(1.0, tk.END)
         self.json_output.insert(tk.END, self.curr_json)

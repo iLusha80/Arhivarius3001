@@ -12,9 +12,9 @@ class Reader:
         xlsx_file = XLSXFile(name=exm_file_name, sheets=reader.get_sheets())
         return xlsx_file.sheets[0]
 
-    def make_json(self, id_row: int) -> dict:
+    def make_json(self, id_row: int, coockies : dict) -> dict:
         code_kp = self.main_data_sheet.rows[id_row].cells[0].value
-        id_kp = mok_fetch_kp_id(cookies={}, code_kp=code_kp)
+        id_kp = fetch_kp_id(cookies=coockies, code_kp=code_kp)
 
         bus_desc_url = self.main_data_sheet.rows[id_row].cells[1].value
         try:
