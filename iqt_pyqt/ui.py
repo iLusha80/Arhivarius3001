@@ -8,7 +8,7 @@ from iqt_pyqt.cookie_selector import CookieSelector
 from iqt_pyqt.file_selector import FileSelector
 
 from auto_ivan.reader import Reader
-from auto_ivan.apishka import mok_send_post_request
+from auto_ivan.apishka import send_post_request
 
 
 class JSONAppUI(QWidget):
@@ -167,7 +167,7 @@ class JSONAppUI(QWidget):
 
     def send_json(self):
         if self.curr_json and self.cookie_selector.cookies and self.curr_row <= len(self.reader.main_data_sheet.rows):
-            s, _, _ = mok_send_post_request(url=self.main_post_url, json_data=self.curr_json,
+            s, _, _ = send_post_request(url=self.main_post_url, json_data=self.curr_json,
                                             cookies=self.cookie_selector.cookies)
             if s == 200:
                 if self.curr_row < len(self.reader.main_data_sheet.rows):

@@ -1,6 +1,6 @@
 from arhivarius.arhivarius import SimpleXLSXReader
 from arhivarius.models import XLSXFile, XLSXRow, XLSXSheet
-from auto_ivan.apishka import fetch_kp_id, mok_fetch_kp_id
+from auto_ivan.apishka import fetch_kp_id
 
 class Reader:
     def __init__(self, filename: str):
